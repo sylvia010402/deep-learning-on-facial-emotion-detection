@@ -1,74 +1,94 @@
-# deep-learning-on-facial-emotion-detection - Student Emotional Wellness Detection System
+# Facial Emotion Recognition for Mental Health Awareness in Education
 
-Building emotionally intelligent educational technology through real-time facial emotion recognition to support student mental health and engagement.
+## Background and Overview
 
-## Why This Matters
+As part of my graduate studies and growing interest in education technology and student well-being, I developed this facial emotion recognition model to explore how data and deep learning can help educators better understand students' emotional states. In increasingly digital classrooms, teachers lose access to vital non-verbal cues that signal how students are feeling, whether they are engaged, confused, or struggling. I wanted to create a tool that could help bring those cues back into the picture.
 
-Student mental health has become one of education's most pressing challenges. With rising rates of anxiety and depression across all age groups, educators desperately need tools to identify struggling students before academic performance suffers. Traditional approaches rely on self-reporting or behavioral observations that often come too late.
+This project uses deep learning and computer vision to classify four basic emotions—happy, sad, neutral, and surprise—from grayscale facial images. My goal was not just technical performance but practical relevance: a lightweight, efficient model that could be realistically deployed in educational tools to support mental health monitoring and adaptive teaching strategies. 
 
-This project addresses a fundamental gap in educational technology: the ability to understand and respond to student emotional states in real-time. By developing a computer vision system that can accurately detect emotions from facial expressions during online learning, video calls, or classroom interactions, we can create early warning systems that help educators provide timely support when students need it most.
+## Data Overview
 
-After testing multiple deep learning approaches on facial emotion data, I found that purpose-built models significantly outperform complex pre-trained architectures for this specific educational context. The final system achieves 68.75% accuracy in identifying four key emotional states that matter most for student wellbeing and engagement.
+The dataset contains approximately 15,000 labeled facial images organized into training, validation, and test sets. Each image is a 48x48 grayscale photo categorized into one of four emotion classes. I chose to use grayscale images to reduce complexity and preserve privacy, focusing the model on facial structure rather than color features.
 
-## What I Discovered
+* Input shape: (48, 48, 1)
+* Emotion classes: happy, sad, neutral, surprise
+* Format: folder structure with labeled subdirectories
 
-**Simpler, targeted models work better than complex general solutions for educational contexts**
+This simple structure made preprocessing and training straightforward and allowed me to concentrate on model design and evaluation.
 
-While testing various architectures, I discovered that sophisticated models like ResNet101 and EfficientNetB0, despite their reputation for handling complex image recognition tasks, performed poorly on educational facial emotion data (only 25% accuracy). However, a custom-designed convolutional neural network built specifically for this problem achieved nearly 70% accuracy. This finding challenges the assumption that bigger and more complex is always better, especially when building tools for specific educational applications.
+## Entity Relationship Diagram (ERD)
 
-**Real-time emotion detection is feasible with basic hardware**
+Although this project doesn't rely on a traditional relational database, I created a conceptual ERD to illustrate how this model's structure could integrate into broader educational systems. It includes three core entities:
 
-The system works effectively with grayscale images, eliminating the need for expensive color processing equipment. This makes the technology accessible for widespread deployment in schools with limited budgets, rural educational settings, and bandwidth-constrained online learning environments. Students don't need high-end cameras or fast internet connections for the system to work effectively.
+* Image (Image ID, Pixel Array, Label)
+* Emotion (Label, Description)
+* ModelResult (Image ID, Predicted Label, Confidence Score)
 
-**Positive emotions are easier to detect than subtle distress signals**
+This abstraction can apply to educational software platforms that track student responses or behavioral trends.
 
-The model showed strong performance detecting happiness (F1-score: 0.78) and surprise (F1-score: 0.87), but struggled more with distinguishing between sadness and neutral expressions. This pattern reveals an important insight for educational applications: while we can reliably identify when students are engaged and excited, detecting early signs of emotional distress requires more sophisticated approaches and potentially additional data sources beyond facial expressions alone.
+## Methodology and Model Building
 
-**The confusion between sad and neutral emotions points to a broader challenge**
+In this project, I explored how deep learning can support emotion recognition by building and evaluating multiple neural network models. I began by testing several well-known pre-trained architectures, including VGG16, ResNet101, and EfficientNetB0, applying transfer learning to adapt them to the task of facial emotion classification using grayscale images. To better fit the structure and limitations of the dataset, I then designed a custom convolutional neural network (CNN) from scratch. This model was built to detect four emotion categories—happy, sad, neutral, and surprise—using only structural facial features. By comparing these models, I was able to analyze their performance, identify key limitations, and ultimately recommend a solution that balances accuracy, efficiency, and practical relevance in educational contexts. The table below compares the performance of each model 
 
-Analysis of model errors revealed that most misclassifications occurred between sad and neutral expressions. This isn't just a technical limitation but reflects a real-world challenge in education: students experiencing emotional difficulties often present with subtle changes that are difficult to detect. This finding suggests that effective student support systems need multiple indicators beyond facial expressions.
+### Model Comparison
 
-## Real-World Applications
+| Model             | Description                                     | Test Accuracy | Notable Strengths         | Limitations                      |
+|------------------|-------------------------------------------------|---------------|----------------------------|----------------------------------|
+| VGG16            | A classic pre-trained image model               | ~53%          | Recognizes clear patterns  | Struggled with grayscale input  |
+| ResNet101        | Deep network with shortcut connections          | ~25%          | Good on complex datasets   | Overfit, poor emotion accuracy  |
+| EfficientNetB0   | Lightweight, balanced deep model                | ~27%          | Compact and scalable       | Did not adapt well to task      |
+| Custom CNN (Model 3) | Built from scratch for this project           | **~69%**       | Best accuracy and balance  | Slight confusion on subtle emotions |
 
-**Early intervention systems for online learning platforms**
 
-Educational technology companies could integrate this system into their platforms to monitor student engagement and emotional states during video lessons. When the system detects signs of frustration or disengagement, it could automatically suggest breaks, offer additional support resources, or alert instructors to check in with specific students.
+The four different models were trained to classify emotions in grayscale facial images. The pre-trained models—VGG16, ResNet101, and EfficientNet—were designed for general object recognition and performed inconsistently in this context. VGG16 achieved moderate accuracy, while ResNet and EfficientNet struggled with the grayscale format and the subtle differences between emotional expressions. In contrast, the custom CNN I developed was specifically designed for this task and dataset. It achieved the highest accuracy at around 69 percent and showed the best overall balance across emotion categories. This suggests that a model built to match the data and problem often performs better than larger, general-purpose architectures.
 
-**Mental health screening tools for schools**
 
-School counselors could use this technology as part of regular wellness check-ins, providing an objective measure to complement traditional assessment methods. Rather than relying solely on student self-reporting, which can be unreliable especially among younger students, educators would have additional data to identify students who might benefit from mental health support.
+The final model achieved 68.75% accuracy on unseen test data using grayscale-only inputs. I tested several approaches, including popular pre-trained models like VGG16, ResNet101, and EfficientNet. Surprisingly, the best results came from a custom convolutional neural network (CNN) that I built and trained from scratch. 
 
-**Adaptive learning environments**
+Key metrics:
 
-Educational software could use real-time emotion detection to adjust content difficulty, pacing, or presentation style based on student emotional responses. If the system detects confusion or frustration, the platform could automatically provide additional explanations or suggest alternative learning approaches.
+* Test Accuracy: 68.75%
+* Happy F1 Score: 0.78
+* Surprise F1 Score: 0.87
+* Lowest Recall: Sad (0.50)
+* Key confusion: Sad vs. Neutral
 
-**Teacher training and classroom management**
+This model performed best in identifying clear, expressive emotions like surprise and happiness. It showed that a focused, task-specific model could outperform larger, general-purpose architectures when trained appropriately.
 
-This technology could help teacher preparation programs by providing objective feedback on how different instructional approaches affect student emotional engagement. New teachers could use this data to refine their classroom management and instructional strategies based on real student emotional responses.
+## Accuracy and Loss Curves
+[!alt text](results/accuracy_curve.png)
+[!alt text](results/loss_curve.png)
 
-## Technical Implementation
+### Confusion Matrix
+[!alt text](results/confusion_matrix.png)
 
-The solution uses Python with TensorFlow/Keras for deep learning, OpenCV for image processing, and scikit-learn for model evaluation. The final architecture consists of five convolutional blocks with batch normalization, dropout regularization, and dense classification layers, specifically optimized for the grayscale facial emotion recognition task.
+## Insights Deep Dive
 
-Key technical decisions included using LeakyReLU activations to handle sparse features in facial expressions, implementing progressive dropout rates to prevent overfitting on the limited dataset, and designing custom data augmentation techniques appropriate for facial emotion analysis.
+One major insight I gained is that happy and surprise expressions are much easier for the model to detect. Their distinctive shapes—smiles and widened eyes—make them visually obvious, and the model picked up on that quickly. This means that these emotion predictions are the most reliable when used in a classroom context.
 
-The model processes 48x48 pixel grayscale images and outputs probability distributions across four emotion categories, making it lightweight enough for real-time deployment while maintaining strong predictive performance.
+Another key takeaway is that grayscale images were entirely sufficient. Even without color, the model performed well. This has practical implications for privacy, efficiency, and hardware constraints in real-world classroom tools.
 
-## What's Next
+I also found that large pre-trained models aren’t always better. The custom model I built was more adaptable to this task and dataset. It outperformed the transfer learning models across the board.
 
-This project opens several promising directions for educational technology development. Future enhancements could include expanding the emotion categories to detect more nuanced states like confusion or boredom, integrating multi-modal approaches that combine facial expressions with voice analysis or behavioral patterns, and developing real-time intervention strategies based on detected emotional states.
+Finally, the confusion between sad and neutral emotions showed me that emotional expression is nuanced. This model provides a strong starting point, but I see the need for richer data inputs—like voice tone or behavioral patterns—to capture the full picture.
 
-The biggest opportunity lies in creating comprehensive student support ecosystems that use emotion detection as one component of broader mental health and academic support systems. By combining this technology with learning analytics, social-emotional learning curricula, and human counseling resources, we could build more responsive and supportive educational environments.
+## Recommendations
 
-For education policy researchers, this work demonstrates the potential for technology-assisted approaches to student mental health support, while highlighting the importance of ethical considerations around privacy and consent when implementing emotional monitoring systems in educational settings.
+1. I recommend using this custom model in real-time educational tools, especially those aimed at increasing engagement or supporting student mental health.
+2. Its output could inform educators when students seem disengaged or emotionally withdrawn, prompting timely interventions.
+3. Future versions should incorporate additional emotional categories and more diverse student data.
+4. Blending modalities—adding speech or clickstream behavior—could significantly improve emotional understanding.
 
-## Repository Structure
+## Caveats and Assumptions
 
-```
-├── README.md           # Project overview and key findings
-├── docs/              # All documentation and data files
-├── code/              # Python scripts and analysis pipeline  
-└── results/           # Model outputs and visualizations
-```
+This model is based on a simplified dataset and focuses on just four emotions. It assumes frontal face images with consistent lighting and expression clarity. In real-life settings, facial expressions vary across cultures, age groups, and environments. Additionally, some emotion categories like sadness and neutrality are hard to differentiate even for humans. The model should be used as a supportive tool, not as a replacement for human judgment. Any high-stakes applications should always include a feedback loop and ethical safeguards.
 
-Built with Python, TensorFlow, OpenCV, and scikit-learn for comprehensive emotion recognition analysis.
+Another important ethical consideration involves the risk of misinterpretation or overreliance on emotion predictions. Facial expressions do not always reflect how a student is truly feeling, and emotional states can vary significantly across cultural, neurological, or personal contexts. There is a risk that educators or systems might draw conclusions from the model’s output without proper context, potentially reinforcing bias or making inaccurate assumptions about a student’s engagement or well-being. To mitigate this, I believe any implementation should be transparent about its limitations, include opt-in consent from users, and be used only as one component in a broader system that values human oversight and feedback. Emotion recognition, when applied thoughtfully, can support inclusion and responsiveness—but only when paired with ethical design, continuous validation, and respect for student autonomy.
+
+
+## Tools and Libraries
+Python, TensorFlow, Keras, OpenCV, NumPy, Pandas, Scikit-learn, Matplotlib, Seaborn, Jupyter Notebook, Google Colab, Canva
+
+## Skills Demonstrated
+Data preprocessing, CNN architecture design, transfer learning, model evaluation, image augmentation, classification metrics, ethical analysis, visual reporting, GitHub portfolio development
+
