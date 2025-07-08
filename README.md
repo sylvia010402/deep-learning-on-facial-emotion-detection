@@ -7,7 +7,7 @@ As part of my graduate studies and growing interest in education technology and 
 This project uses deep learning and computer vision to classify four basic emotions—happy, sad, neutral, and surprise—from grayscale facial images. My goal was not just technical performance but practical relevance: a lightweight, efficient model that could be realistically deployed in educational tools to support mental health monitoring and adaptive teaching strategies. 
 
 ## Data Overview
-[!alt text](results/distribution_of_classes.png)
+![alt text](results/distribution_of_classes.png)
 
 The dataset contains approximately 15,000 labeled facial images organized into training, validation, and test sets. Each image is a 48x48 grayscale photo categorized into one of four emotion classes. I chose to use grayscale images to reduce complexity and preserve privacy, focusing the model on facial structure rather than color features.
 
@@ -57,11 +57,11 @@ Key metrics:
 This model performed best in identifying clear, expressive emotions like surprise and happiness. It showed that a focused, task-specific model could outperform larger, general-purpose architectures when trained appropriately.
 
 ## Accuracy and Loss Curves
-[!alt text](results/accuracy_curve.png)
-[!alt text](results/loss_curve.png)
+![alt text](results/accuracy_curve.png)
+![alt text](results/loss_curve.png)
 
 ### Confusion Matrix
-[!alt text](results/confusion_matrix.png)
+![alt text](results/confusion_matrix.png)
 
 ## Insights Deep Dive
 
