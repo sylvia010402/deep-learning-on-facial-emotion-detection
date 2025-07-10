@@ -11,27 +11,27 @@ This folder contains all outputs generated from the emotion recognition analysis
 
 ## Output Files
 
-**Model Performance**
-- `model_comparison_results.csv` - Accuracy and loss metrics for all tested architectures
-- `confusion_matrices/` - Visual confusion matrices for each model
-- `classification_reports/` - Detailed precision, recall, and F1-scores by emotion class
-- `training_history/` - Loss and accuracy curves during model training
+- `distribution_of_classes.png`
+  Dataset numnber of distributions of each emotion.
+  
+- `confusion_matrix_model3.png`  
+  A heatmap showing the final model’s prediction accuracy across all emotion classes.
 
-**Visualizations**
-- `training_curves/` - Training and validation performance over epochs
-- `error_analysis_plots/` - Misclassification patterns and model interpretability
-- `data_distribution_charts/` - Class balance and sample image visualizations
+- `classification_report_model3.txt`  
+  A summary of precision, recall, and F1-scores for happy, sad, neutral, and surprise.
 
-**Model Assets**
-- `best_model.h5` - Trained custom CNN model file
-- `model_weights/` - Saved weights for reproducibility
-- `preprocessing_pipeline.pkl` - Image preprocessing parameters
+- `accuracy_loss_curves_model3a.png`  
+  Training and validation accuracy/loss across 35 epochs for the custom CNN.
 
-**Educational Applications**
-- `demo_predictions/` - Sample emotion predictions on test images
-- `real_time_demo_output/` - Screenshots and results from live emotion detection
-- `performance_benchmarks.md` - Speed and accuracy metrics for deployment planning
+- `accuracy_loss_curves_model3b.png`  
+  Training and validation accuracy/loss across 35 epochs for the custom CNN.
 
-## Using the Results
+- `model_comparison_table.png`  
+  A table summarizing test accuracy and performance insights for VGG16, ResNet101, EfficientNetB0, and the custom model.
 
-The trained model (`best_model.h5`) can be loaded directly for making predictions on new facial images. See the inference demo in the code folder for implementation examples. Performance visualizations provide insights into model behavior and can inform deployment decisions for educational technology applications.
+
+## Key Takeaways
+
+- The custom CNN consistently outperformed all transfer learning models with a test accuracy of approximately 69%.
+- Happy and surprise expressions were most accurately predicted, while sad and neutral were often confused.
+- The validation loss remained stable, indicating minimal overfitting and good generalization.
