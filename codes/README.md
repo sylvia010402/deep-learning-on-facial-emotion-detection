@@ -13,6 +13,9 @@ This folder contains the complete Python pipeline for the Student Emotional Well
 - `3_model_evaluation.py`  
   Includes test set evaluation, performance metrics (accuracy, F1-score), and visualizations like confusion matrices.
 
+- `Reference_Notebook_Facial_Emotion_Detection_Full_Code.ipynb`  
+  The original Jupyter notebook used for prototyping and exploratory development. It contains the full workflow in a single file with all code, outputs, comments and educational insights.
+
 
 
 ### Technologies Used
